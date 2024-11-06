@@ -22,7 +22,7 @@
 #define MCP2515_CS_PIN 15  // SPI CS pin for MCP2515
 
 // Log tag
-static const char *TAG = "GPS_CAN_Parser";
+static const char *TAG = "GPS";
 
 // GPS NMEA sentence types
 #define GPGGA "GPGGA"
@@ -111,7 +111,7 @@ void can_init() {
 // Function to send GPS data over CAN
 void send_data_to_ecu(const gps_data_t *data) {
     // Prepare CAN frame with GPS data (latitude, longitude, altitude)
-    frame.can_id = 0x126;  // CAN ID for GPS data
+    frame.can_id = 0x54;  // CAN ID for GPS data
     frame.can_dlc = 8;  // 8 bytes: 4 for latitude, 4 for longitude (float data)
     memcpy(frame.data, &data->latitude, sizeof(float));  // Latitude
     memcpy(frame.data + 4, &data->longitude, sizeof(float));  // Longitude

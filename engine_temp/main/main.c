@@ -58,7 +58,7 @@ void can_init() {
 
 // Send CAN message with temperature data
 void send_data_to_ecu(float temperature) {
-    frame.can_id = 0x127;  // Example CAN ID for engine temperature sensor
+    frame.can_id = 0x53;  // Example CAN ID for engine temperature sensor
     frame.can_dlc = 4;  // 4 bytes for temperature (float value)
     memcpy(frame.data, &temperature, sizeof(temperature));
 

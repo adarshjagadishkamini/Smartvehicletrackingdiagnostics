@@ -35,11 +35,6 @@ MCP2515 mcp2515(&SPI, MCP2515_CS_PIN);  // Initialize MCP2515 with SPI
 // Structure to send CAN messages
 struct can_frame frame;
 
-// Function to simulate time increment (for the sake of this example)
-uint32_t time_in_seconds() {
-    static uint32_t time = 0;
-    return time++;
-}
 
 // Function to handle pulse detection from the Hall Effect sensor (ISR or interrupt handler)
 void IRAM_ATTR pulse_detected_isr() {
@@ -48,7 +43,7 @@ void IRAM_ATTR pulse_detected_isr() {
 
 // Function to calculate RPM from pulse count over a fixed time window
 void calculate_rpm() {
-    uint32_t current_time = time_in_seconds();  // Get current time in seconds
+    uint32_t current_time = esp_timer_get_time();  // Get current time in seconds
 
     // Calculate pulses in the last time window
     uint32_t pulses_in_window = pulse_count;
@@ -100,7 +95,7 @@ void can_init() {
 
 // Send CAN message with speed data
 void send_data_to_ecu(int speed) {
-    frame.can_id = 0x128;  // Example CAN ID for speed sensor
+    frame.can_id = 0x55;  
     frame.can_dlc = 2;     // Data length (2 bytes for speed)
     frame.data[0] = (speed >> 8) & 0xFF;  // High byte of speed
     frame.data[1] = speed & 0xFF;         // Low byte of speed

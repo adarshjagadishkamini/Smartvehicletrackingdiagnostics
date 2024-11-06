@@ -48,9 +48,9 @@ int read_battery_voltage() {
     vTaskDelay(50 / portTICK_PERIOD_MS);
     i2c_master_read_from_device(I2C_MASTER_NUM, INA219_ADDR, data, 2, 1000 / portTICK_PERIOD_MS);
     
-    // Combine two bytes and calculate voltage (example conversion)
+    
     int voltage_raw = (data[0] << 8) | data[1];
-    return voltage_raw * 0.002;  // Example: scale to mV
+    return voltage_raw * 0.002;  
 }
 
 // CAN initialization
@@ -62,7 +62,7 @@ void can_init() {
 
 // Send CAN message
 void send_data_to_ecu(int voltage) {
-    frame.can_id = 0x123;  // Example CAN ID for battery sensor
+    frame.can_id = 0x51;  // CAN ID for battery sensor
     frame.can_dlc = 2;  // Data length (2 bytes for voltage)
     frame.data[0] = (voltage >> 8) & 0xFF;
     frame.data[1] = voltage & 0xFF;

@@ -67,7 +67,7 @@ void can_init() {
 
 // Send CAN message with collision distance
 void send_data_to_ecu(int distance) {
-    frame.can_id = 0x125;  // Example CAN ID for collision sensor
+    frame.can_id = 0x52;  // Example CAN ID for collision sensor
     frame.can_dlc = 2;  // 2 bytes for distance (in cm)
     frame.data[0] = (distance >> 8) & 0xFF;
     frame.data[1] = distance & 0xFF;

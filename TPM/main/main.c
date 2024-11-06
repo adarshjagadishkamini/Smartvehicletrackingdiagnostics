@@ -12,7 +12,7 @@
 #define I2C_MASTER_SDA_IO 21
 #define I2C_MASTER_NUM I2C_NUM_0
 #define I2C_MASTER_FREQ_HZ 100000
-#define TPMS_SENSOR_ADDR 0x76  // Example I2C address for TPMS
+#define TPMS_SENSOR_ADDR 0x76  
 
 // CAN configuration
 #define CAN_SPEED CAN_500KBPS
@@ -63,7 +63,7 @@ void can_init() {
 
 // Send CAN message
 void send_data_to_ecu(int pressure) {
-    frame.can_id = 0x124;  // Example CAN ID for tire pressure sensor
+    frame.can_id = 0x56;  
     frame.can_dlc = 2;  // 2 bytes for pressure
     frame.data[0] = (pressure >> 8) & 0xFF;
     frame.data[1] = pressure & 0xFF;
